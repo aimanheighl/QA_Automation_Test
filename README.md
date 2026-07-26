@@ -90,5 +90,6 @@ LOGIN_USER = {
     "password": "test123456789",
 }
 ```
+- For Test Case 2, need to remove the added bookmarked as it saves in server side. (For repetition test)
 - The register / submit button is **never clicked** — forms are populated only.
 - Chrome browser and internet connection required.
