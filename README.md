@@ -23,7 +23,7 @@ Python + Selenium automation for StarProperty.my — registration, bookmarking, 
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/aimanheighl/QA_Automation_Test.git
 cd QA_Automation_Test
 ```
 
