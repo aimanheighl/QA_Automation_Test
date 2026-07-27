@@ -90,6 +90,6 @@ LOGIN_USER = {
     "password": "test123456789",
 }
 ```
-- For Test Case 2, need to remove the added bookmarked as it saves in server side. (For repetition test)
+- TC02 now have a cleanup button for repetition post
 - The register / submit button is **never clicked** — forms are populated only.
 - Chrome browser and internet connection required.

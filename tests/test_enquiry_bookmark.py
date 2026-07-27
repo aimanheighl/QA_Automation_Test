@@ -151,6 +151,75 @@ def test_enquiry_and_bookmark_flow():
             )
         )
         close_btn.click()
+
+        logger.info("Cleaning up bookmarked items...")
+
+        driver.get(
+            "https://www.starproperty.my/bookmark/all_bookmark?type=classifieds"
+        )
+
+        bookmark_items = wait.until(
+            EC.presence_of_all_elements_located(
+                (By.CSS_SELECTOR, ".bookmark__title, h4.bookmark__title")
+            )
+        )
+
+        logger.info(f"Bookmarks found for cleanup: {len(bookmark_items)}")
+
+        if bookmark_items:
+
+            item_checkboxes = driver.find_elements(
+                By.CSS_SELECTOR,
+                "input.fill-control-input:not(#list_classifieds)"
+            )
+
+            logger.info(f"Checkboxes found: {len(item_checkboxes)}")
+
+            for checkbox in item_checkboxes:
+                if not checkbox.is_selected():
+                    driver.execute_script(
+                        "arguments[0].click();",
+                        checkbox
+                    )
+                    time.sleep(0.5)
+
+            logger.info("Selected all bookmark checkboxes")
+
+            time.sleep(2)
+
+            clear_btn = wait.until(
+                EC.element_to_be_clickable(
+                    (By.ID, "removeBookmark_classifieds")
+                )
+            )
+
+            driver.execute_script(
+                "arguments[0].click();",
+                clear_btn
+            )
+
+            logger.info("Clicked Clear")
+
+            time.sleep(3)
+
+            driver.refresh()
+            time.sleep(2)
+
+            visible_bookmarks = [
+                item for item in driver.find_elements(
+                    By.CSS_SELECTOR,
+                    ".bookmark__title, h4.bookmark__title"
+                )
+                if item.is_displayed()
+            ]
+
+            if len(visible_bookmarks) == 0:
+                logger.info("Bookmarks cleared successfully")
+            else:
+                logger.warning(
+                    f"{len(visible_bookmarks)} visible bookmark(s) remain"
+                )
+
         logger.info("Enquiry form closed — not submitted")
 
         dashboard_btn = wait.until(
